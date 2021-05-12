@@ -61,7 +61,7 @@ response.setDateHeader("Expires", 0);
       <img class="img-fluid" alt="Responsive image"src="/aut/img/em.png"width="150" height="150"/></h4>
     <h3 align="center" class="hy"><%out.println(u.getUsuario());%></h3> <hr>
       <h4 class="hy" align="center">
-        <a class="hy" href = "/aut/Empleados/cuentas.jsp" target="der">Cuentas</a><br>
+        <a class="hy" href = "/aut/Controlador?accion=home-empleado" target="der">Cuentas</a><br>
         <a class="hy" href = "/aut/Empleados/CRUD_P.jsp" target="der" > Producto</a><br>
         <% 
         out.println("<a class='hy' TARGET='_top' href='/aut/editar.jsp?Usu="+u.getUsuario()+"&Id="+u.getUsu()+"&Tipo="+u.getTipo()+"'>Perfil</a>");

@@ -1,109 +1,59 @@
-<%-- 
-    Document   : cuentas
-    Created on : 30/12/2020, 10:36:53 PM
-    Author     : osdroix
---%>
-
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="Entidades.empleado"%>
-<%@page import="java.util.List"%>
-<%@page import="Entidades.Producto"%>
 <%@page import="Backend.CRUD"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="Entidades.usuarios"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Backend.Conexion"%>
+<%@page import="Entidades.administrador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    response.setHeader("Cache-Control", "no-cache");
-    response.setHeader("Cache-Control", "no-store");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
-%>
-<%
-    HttpSession sesion = request.getSession(true);
-    empleado u = (empleado) sesion.getAttribute("user");
-    if (sesion.getAttribute("user") != null) {
+<%@page session= 'true' %>
 
-
-%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   <!DOCTYPE html>
+    <%
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
+    <%
+        HttpSession sesion = request.getSession(true);
+        empleado u = (empleado) sesion.getAttribute("user");
+        if (sesion.getAttribute("user") != null) {
+    %>
 <html>
-<head>
-	 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="keywords" content="Art Sign Up Form Responsive Widget, 
-              Audio and Video players, Login Form Web Template, Flat Pricing 
-              Tables, Flat Drop-Downs, Sign-Up Web Templates, 
-	Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone 
-        Compatible Web Template, Free Web Designs for Nokia, Samsung, 
-        LG, Sony Ericsson, Motorola Web Design"
-    />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>JSP Page</title>
+        <script src="https://kit.fontawesome.com/f46ce87315.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="CSS/diseño.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand">Cuentas</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <link rel="stylesheet" type="text/css" href="/aut/CSS/ventana.css">
-    <link href="/aut/CSS/diseño.css" rel="stylesheet" type="text/css" />
-	<title>
-		cuentas.
-	</title>
-</head>
-<body>
-        <div class="superiorr">
-	<h3  class="hy" >
-		Cuentas 
-                <div class="p">
-                   <A  class="btn btn-success btn-block" href="/aut/cerrasesion" target="_top">
-                    <img src='/aut/img/salida.png'width='40' height='40'/>Exit
-                   </A>
-                 </div>
-        </h3></div>
-    <div class="party">
-         <%
-      String nom= request.getParameter("Nom");
-      String Id= request.getParameter("ID");
-      %> 
-		<div class="sumatorios">
-			<form>
-			<h5 align="center"><br>Productos</h5>
-			<br>Enviar productos<hr>
-    <div class="party">
-                    <input class="text" type="text" placeholder="<%out.println(nom);%>" name="nombre" style="width : 40%;" />
-                    <input class="form-control" type="text" placeholder="cantidad" name="cant" style="width : 30%;" />
-                    <input class="form-control" type="text" placeholder="<%out.println(Id);%>" name="folio"style="width : 15%;" />
-                    <button id="btn"  class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/me2.png"width="30" height="30"/></button>
-                    
-                 
-                    
-                      
-                    
-    </div>
-                    
-
-        </form>
-			<form action="buscador" method="POST">
-			<h5 align="center"><br>Nota</h5>
-                        <%
-                              out.println("<tr><td>" 
-                               + "<h3>"+ "Del producto "
-                               + (nom) 
-                               + " quedan "
-                               + (Id)
-                               + " piezas"
-                               + "</td></td>");
-                        %> 
-                        <br>
-			<br>Servicios<hr>
-                    <button  class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/pdf.png"width="25" height="30"/></button>
-                    <a href="https://mail.google.com/mail/u/0/#inbox" target="_top"><img  alt="Responsive image"src="/aut/img/gmail.png"width="40" height="40"/></a>
-                    <button  class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/envios.jpg"width="35" height="35"/></button>
-                    <button  class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/x.png"width="30" height="30"/></button>
-                    <button  class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/basura2.jpg"width="30" height="30"/></button>
-        </form>	
-                 </div>
-		<div class="buscado">
-                   <form action="/aut/Empleados/cuentas.jsp" method="POST">
-                        <h5>Buscador</h5>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="Controlador?accion=home-empleado">Inicio<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="Controlador?accion=Carrito-empleado">
+                       (<label style="color: blue"> ${contador} </label>)Lista de productos</a>
+                </li>
+                <li>
+                   <form action="Controlador?accion=Buscar" method="POST">
                        <div class="party">
-                            <select class="form-control" type="text" name="id_tipo">
+                     <select class="form-control" type="text" name="id_tipo">
                                     <option value="1">Cremeria</option>
                                     <option value="2">Verduras</option>
                                     <option value="3">Frituras Y Dulces</option>
@@ -117,50 +67,45 @@
                                     <option value="11">Refrescos</option>
                                     <option value="12">otros</option>
                           </select>
-                            <button type="submit" class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/lup.png"width="30" height="30"/></button>
-                       </div>
+                              <button type="submit"class="btn btn-link" onclick="" ><img  alt="Responsive image"src="/aut/img/lup.png"width="30" height="30"/></button>
                   </form>
-                    
-                    <% 
-                    String po;
-                        po = request.getParameter("id_tipo");
-                    if(po != null){
-                    %>
-                    <div>
-                    <hr> 
-                    <%
-                    ArrayList<Producto> us = new ArrayList();
-                    us=CRUD.getBuscador(po);
-                    for(Producto o:us){
-                          
-                          out.println("<tr><td>"
-                                + "<h6>"+o.getNombre()+"<br>"
-                                + "Cantidad:  "+o.getNum_cantidad()+"  Productos o Kg<br>"
-                                + "Precio: "+o.getPrecio()+"</td><td> "
-                                 + "<a href='/aut/Empleados/"
-                                + "cuentas.jsp?ID="+o.getId_incremet()+""
-                                + "&Nom="+o.getNombre()+"'><img  alt='Responsive image'src='/aut/img/carro.png'width='30' height='30'/></a></td>"
-                                + "</tr>");
-                        
-                        
-                        
-                    }
-                    
-                    
-                    %>
                     </div>
-                    <%
-                    }else{
-                    %>
-                    <hr>
-                    <h4 align="center">Sin datos</h4></div></div>
-                    <%
-                    }%>
-		</div>
-</body>
+                </li>
+                
+                <li class="nav-item active">
+                    <h3 align="left" ><%out.println(u.getUsuario());%></h3>
+                </li>
+                </ul>
+                </div>
+            </nav>
+                <div class="productos">       
+                    <p align="center"><div class="row" >
+                         
+                            <c:forEach var="p" items="${productos}">
+                            <div class="modelos">
+                                        <label>${p.getNombre()}</label>
+                                         <img src="${p.getDescripcion()}" height="150" width="150">
+                                        <label>$ ${p.getPrecio()} MXN</label>
+                                        <div class="align">
+                                            <a class="btn btn-primary" href="Controlador?accion=AgregarCarrito-empleado&id=${p.getId()}" class="hidden">Agregar</a>
+                                            <a class="btn btn-info" href="Controlador?accion=Comprar-empleado&id=${p.getId()}">Vender</a>
+                                        </div>
+                                    </div>
+                            </c:forEach>
+                        </div>
+                </p>
+                    
+                </div>
+                
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+    </body>
 </html>
-<%   } else {
+   <%   } else {
 
-        response.sendRedirect("/aut/Empleados/cuentas.jsp");
-    }
-%>
+            response.sendRedirect("/aut/Empleados/CRUD_P.jsp");
+        }
+    %>
+

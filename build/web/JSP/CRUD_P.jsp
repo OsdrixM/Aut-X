@@ -101,7 +101,7 @@
                        <div class="party">
                            <h6>Producto o Kg:</h6><br>
                            <input class="form-control" type="text"placeholder="Cantidad" name="cant">
-                            <input class="form-control" type="text"placeholder="$Precio$" name="prec"></div><br>
+                            <input class="form-control" type="text"placeholder="MNX" name="prec"></div><br>
                         <input class="form-control" type="text"placeholder="Imagen Web" name="img"><br>
                 <center><button type="submit"  class="btn btn-primary" name="btn">Aceptar</button></center>
                </form>

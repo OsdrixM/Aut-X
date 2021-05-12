@@ -20,6 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import static java.nio.file.Files.list;
+import static java.rmi.Naming.list;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -39,6 +41,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.List;
 
 /**
  *
@@ -179,6 +183,32 @@ public class CRUD {
                 con.close();
         }catch(Exception d){
             System.out.println("NO HAY TABLA producto");
+            System.out.println(d.getMessage());
+            System.out.println(d.getStackTrace());
+        }
+        return estado;
+    
+    }
+    
+    public static int guardartiquet(tiquet e){
+        
+        int estado = 0;
+        try{
+            Connection con = Conexion.getConnection();
+           String q="insert into tiquet (Id_tiquet,Id_empleado_tiquet,Fecha_tiquet,Producto_tiquet,total_tiquet)values(?,?,?,?,?)";
+            PreparedStatement set=con.prepareStatement(q);
+            set.setInt(1, e.getId_tiquet());
+            set.setInt(2, e.getId_usuario());
+            set.setString(3, e.getFecha());
+            set.setString(4, e.getProducto());
+            set.setDouble(5, e.getTotal());
+            System.out.println("Tabla tiquet-empleado encontrada");
+             estado = set.executeUpdate();
+             
+                System.out.print(e);
+                con.close();
+        }catch(Exception d){
+            System.out.println("NO HAY TABLA  tiquet-empleado");
             System.out.println(d.getMessage());
             System.out.println(d.getStackTrace());
         }
@@ -431,7 +461,7 @@ public class CRUD {
         
         return usus;
     }
-       public static ArrayList<Producto> getproductos(int numero){
+       public static ArrayList<Producto> getproductos(String numero){
         
         ArrayList<Producto> usus = new ArrayList();
         
@@ -462,6 +492,7 @@ public class CRUD {
         
         return usus;
     }
+ 
        public static ArrayList<Producto> getmostrarproductos(int numero){
         
         ArrayList<Producto> usus = new ArrayList();
@@ -560,12 +591,13 @@ public class CRUD {
         try{
             Connection c = Conexion.getConnection();
             
-            String x = "select * from tiquet";
+            String x = "select * from tiquet INNER JOIN empleado ON empleado.Id_emple=tiquet.Id_empleado_tiquet";
             PreparedStatement set1 = c.prepareStatement(x);
             ResultSet rs = set1.executeQuery();
             while (rs.next()) {
                 tiquet u = new tiquet();
                 u.setId_tiquet(rs.getInt("Id_tiquet"));
+                u.setUsuario(rs.getString("Usuario_emple"));
                 u.setId_usuario(rs.getInt("Id_empleado_tiquet"));
                 u.setFecha(rs.getString("Fecha_tiquet"));
                 u.setProducto(rs.getString("Producto_tiquet"));

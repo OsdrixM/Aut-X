@@ -5,6 +5,8 @@
  */
 package Entidades;
 
+import java.util.Date;
+
 /**
  *
  * @author osdroix
@@ -12,7 +14,7 @@ package Entidades;
 public class tiquet {
    private double total;
    private int id_tiquet, id_usuario;
-   private String fecha,producto;
+   private String fecha,producto,usuario;
 
     public double getTotal() {
         return total;
@@ -52,6 +54,18 @@ public class tiquet {
 
     public void setProducto(String producto) {
         this.producto = producto;
+    }
+
+    public void setFecha(Date fecha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     
 }

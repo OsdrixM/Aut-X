@@ -47,7 +47,7 @@ response.setDateHeader("Expires", 0);
     <link href="/aut/CSS/diseño.css" rel="stylesheet" type="text/css" />
 	
 </head>
-<body>
+<body class="l">
 	<div class="superiorr">
 	<h3  class="hy" >
 		Tiquet 
@@ -63,7 +63,7 @@ response.setDateHeader("Expires", 0);
                 
         </h3></div>
     <div class="party">
-                <table class="table table-striped">
+                <table class="table table-dark">
                     
                     <% 
                     
@@ -73,10 +73,11 @@ response.setDateHeader("Expires", 0);
                     for(tiquet o:us){
                           
                           out.println("<tr><td>"
+                                + "<h4>"+o.getUsuario()+"</h4></td><td>"
                                 + "<h5>Folio:   "+o.getId_tiquet()+"<br>"
                                 + "Fecha:  "+o.getFecha()+"<br>"
-                                + "Productos:  "+o.getProducto()+"<br>"
-                                +  "Ganancia:  "+o.getTotal()+"<br></td><td> "
+                                + "Productos:<br>  "+o.getProducto()+"<br>"
+                                +  "MXN:  "+o.getTotal()+"<br></td><td> "
                                 + "</tr>");
                         
                         
@@ -86,7 +87,7 @@ response.setDateHeader("Expires", 0);
                     
                     %>
                 </table>
-                <table class="table table-striped">
+                <table class="table table-dark">
                     
                      <% 
                     

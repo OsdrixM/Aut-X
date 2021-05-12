@@ -54,6 +54,37 @@ public class ProductoDa {
         
         return productos;
     }
+    public List Buscar(String num){
+        List<Producto>productos=new ArrayList();
+        String sql = "SELECT *FROM productos where Id_tipo_producto like '"+num+"'";
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Producto p = new Producto();
+                p.setId(rs.getInt(1));
+                p.setTipo(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                //ID CAMBIO A 5
+                p.setPrecio(rs.getDouble(5));
+                //ID CAMBIO A 4
+                p.setFecha(rs.getString(4));
+                //CAMBIO A 7
+                p.setDescripcion(rs.getString(7));
+                //CAMBIO A 6
+                p.setNum(rs.getInt(6));
+                productos.add(p);
+                
+            }
+        }catch(Exception e){
+            
+        }
+        
+        
+        return productos;
+    }
+   
     
     /*
     public static void main(String [] args){

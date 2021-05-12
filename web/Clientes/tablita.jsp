@@ -23,7 +23,6 @@
         HttpSession sesion = request.getSession(true);
         usuarios u = (usuarios) sesion.getAttribute("user");
         if (sesion.getAttribute("user") != null) {
-         String parse = request.getParameter("ID");
          int  id = Integer.parseInt(request.getParameter("ID"));
     %>
     <!DOCTYPE html>
@@ -64,17 +63,18 @@
             if (id == 1) {
             %>
         <div class="muro">
-                    <table class="table table-dark">   
-                         <% 
+                    <table class="table table-dark">
+                        <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                    + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                    + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -88,15 +88,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                     + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                     + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -110,15 +111,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                   + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                   + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -131,16 +133,17 @@
                   %> 
                       <div class="muro">
                     <table class="table table-dark">   
-                         <% 
+                        <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                 + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                 + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -153,15 +156,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                    + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                    + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -175,15 +179,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                     + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                     + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -197,15 +202,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                    + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                    + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -218,16 +224,17 @@
                   %> 
                       <div class="muro">
                     <table class="table table-dark">   
-                         <% 
+                       <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                    + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                    + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -241,15 +248,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                     + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                     + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -263,15 +271,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                   + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                   + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -285,15 +294,16 @@
                       <div class="muro">
                     <table class="table table-dark">   
                          <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                     + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                     + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 
@@ -306,16 +316,17 @@
                   %> 
                       <div class="muro">
                     <table class="table table-dark">   
-                         <% 
+                       <% 
+                         String parse = request.getParameter("ID");
                         ArrayList<Producto> us = new ArrayList();
-                        us=CRUD.getproductos(id);
+                        us=CRUD.getproductos(parse);
                         for(Producto o:us){
                                 out.println("<tr><td>"
                                     + "<h4 align='center'><img src='"+o.getDescripcion()+"' width='200' height='200'><br>"+o.getNombre()+"</h4></td><td>"
                                     + "<h3> Caducidad:  "+o.getFecha()+"<br>"
                                     + "Cantidad Kg o Producto:  "+o.getNum_cantidad()+"<br>"
                                     + "Precio:<br></h3>"
-                                    + "<h1 class='azul' align='center'>$"+o.getPrecio()+"$</h1></td><td>"
+                                    + "<h1 class='azul' align='center'>"+o.getPrecio()+"MXN</h1></td><td>"
                                     + "</tr>");
 
 

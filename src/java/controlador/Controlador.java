@@ -1,3 +1,4 @@
+  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,12 +6,22 @@
  */
 package controlador;
 
+import Backend.CRUD;
+import Backend.Conexion;
 import Backend.Fecha;
+import Entidades.empleado;
+import Entidades.tiquet;
 import Entidades.usuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +51,7 @@ ProductoDa da = new ProductoDa();
     Carrito car;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
        
         String accion = request.getParameter("accion");
@@ -124,7 +135,7 @@ ProductoDa da = new ProductoDa();
                 request.setAttribute("total", total);
                 request.setAttribute("carrito", listaCarrito);
                 request.setAttribute("contador", listaCarrito.size());
-                request.getRequestDispatcher("carrito.jsp").forward(request, response);
+                request.getRequestDispatcher("Empledaos/Montos.jsp").forward(request, response);
                 break;
                 
             case "Delete":
@@ -141,22 +152,25 @@ ProductoDa da = new ProductoDa();
                 break;
                 
             case "GenerarCompra":
-                //objeto usuario para crear la informacion
-                Cliente cliente = new Cliente();
-                //numero de cliente que esta en la sesión
-                usuarios u = new usuarios();
-                //extrae numero de usuario logeado
-                //dar un vistazo a al archivo Cliente.java y checar el usuarios.java
-                int usuario = u.getId();
-                cliente.setId(usuario);
-                CompraDA de = new CompraDA();
-                Compra compra = new Compra(cliente, 1, Fecha.FechaBD(), total, "realizado", listaCarrito);
-                int res = de.GenerarCompra(compra);
-                if (res !=0 && total>0) {
-                    request.getRequestDispatcher("mensaje.jsp").forward(request, response);
-                }else{
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+                java.util.Date fecha = new Date();
+                String produc,DATO;
+                double monto;
+                DATO = " "+fecha;
+                int id_emple = Integer.parseInt(request.getParameter("id"));
+                produc = request.getParameter("producto");
+                monto = Double.parseDouble(request.getParameter("total"));
+                tiquet e = new tiquet();
+                e.setId_usuario(id_emple);
+                e.setFecha(DATO);
+                e.setProducto(produc);
+                e.setTotal(monto);
+                System.out.print(id_emple);
+                System.out.print(fecha);
+                System.out.print(monto);
+                System.out.print(produc);
+                int query = CRUD.guardartiquet(e);
+                request.getRequestDispatcher("Controlador?accion=home-empleado").forward(request, response);
+
                 break;
                 
             case "Producto":
@@ -187,10 +201,110 @@ ProductoDa da = new ProductoDa();
                 request.getRequestDispatcher("inicioCarrito.jsp").forward(request, response);
                 break;
                 
-            default:
+            case "home-empleado":
                 request.setAttribute("contador", listaCarrito.size());
                 request.setAttribute("productos", productos);
-                request.getRequestDispatcher("inicioCarrito.jsp").forward(request, response);
+                request.getRequestDispatcher("Empleados/cuentas.jsp").forward(request, response);
+                break;
+            
+            case "AgregarCarrito-empleado":
+                int poss=0;
+                cantidad = 1;
+                idp= Integer.parseInt(request.getParameter("id"));
+                p= da.listarId(idp);
+                if (listaCarrito.size() >0) {
+                    for (int i = 0; i < listaCarrito.size(); i++) {
+                        if (idp == listaCarrito.get(i).getIdProducto()) {
+                            poss=i;
+                        }
+                    }
+                    if (idp == listaCarrito.get(poss).getIdProducto()) {
+                        cantidad = listaCarrito.get(poss).getCantidad()+cantidad;
+                        double subtotal = listaCarrito.get(poss).getPrecioCompra()*cantidad;
+                        listaCarrito.get(poss).setCantidad(cantidad);
+                        listaCarrito.get(poss).setSubTotal(subtotal);
+                        
+                    }else{
+                        item = item + 1;
+                        car = new Carrito();
+                        car.setItem(item);
+                        car.setIdProducto(p.getId());
+                        car.setNombres(p.getNombre());
+                        car.setDescripcion(p.getDescripcion());
+                        car.setPrecioCompra(p.getPrecio());
+                        car.setCantidad(cantidad);
+                        car.setSubTotal(cantidad*p.getPrecio());
+                        listaCarrito.add(car);
+                    }
+                }else{
+                    item = item + 1;
+                car = new Carrito();
+                car.setItem(item);
+                car.setIdProducto(p.getId());
+                car.setNombres(p.getNombre());
+                car.setDescripcion(p.getDescripcion());
+                car.setPrecioCompra(p.getPrecio());
+                car.setCantidad(cantidad);
+                car.setSubTotal(cantidad*p.getPrecio());
+                listaCarrito.add(car);
+                }
+                
+                request.setAttribute("contador", listaCarrito.size());
+                request.getRequestDispatcher("Controlador?accion=home-empleado").forward(request, response);
+               break;
+               
+            case "Carrito-empleado":
+               total =0.0;
+               request.setAttribute("carrito", listaCarrito);
+                for (int i = 0; i < listaCarrito.size(); i++) {
+                    total = total + listaCarrito.get(i).getSubTotal();
+                }
+               request.setAttribute("total", total);
+               request.setAttribute("contador", listaCarrito.size());
+               request.getRequestDispatcher("Empleados/Montos.jsp").forward(request, response);
+               break;
+               
+            case "Comprar-empleado":
+                total =0.0;
+                idp= Integer.parseInt(request.getParameter("id"));
+                p= da.listarId(idp);
+                item = item+1;
+                car = new Carrito();
+                car.setItem(item);;
+                car.setIdProducto(p.getId());
+                car.setNombres(p.getNombre());;
+                car.setDescripcion(p.getDescripcion());
+                car.setPrecioCompra(p.getPrecio());
+                car.setCantidad(cantidad);
+                car.setSubTotal(cantidad*p.getPrecio());
+                listaCarrito.add(car);
+                for (int i = 0; i < listaCarrito.size(); i++) {
+                    total = total + listaCarrito.get(i).getSubTotal();
+                }
+                request.setAttribute("total", total);
+                request.setAttribute("carrito", listaCarrito);
+                request.setAttribute("contador", listaCarrito.size());
+                request.getRequestDispatcher("Empleados/Montos.jsp").forward(request, response);
+                break;
+                
+            case "Delete-empleado":
+                int idproductos = Integer.parseInt(request.getParameter("idp"));
+                for (int i = 0; i < listaCarrito.size(); i++) {
+                    if(listaCarrito.get(i).getIdProducto()== idproductos){
+                        listaCarrito.remove(i);
+                    }
+                }
+
+                break;
+                case "Buscar":
+                String num = request.getParameter("id_tipo");
+                productos = da.Buscar(num);
+                request.setAttribute("contador", listaCarrito.size());
+                request.setAttribute("productos", productos);              
+                request.getRequestDispatcher("Empleados/cuentas.jsp").forward(request, response);
+                 System.out.print(num+" aqui estoy wey");
+                break;
+                
         }
         
     }
@@ -207,7 +321,11 @@ ProductoDa da = new ProductoDa();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    try {
         processRequest(request, response);
+    } catch (SQLException ex) {
+        Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**
@@ -221,7 +339,11 @@ ProductoDa da = new ProductoDa();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    try {
         processRequest(request, response);
+    } catch (SQLException ex) {
+        Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**

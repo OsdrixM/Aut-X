@@ -34,7 +34,7 @@ response.setDateHeader("Expires", 0);
  </head>
     <frameset cols="25%,*" frameborder="no" bordercolor="  " marginwidth="0%" marginheight="0%" scrolling="no" >
       <frame src="/aut/Empleados/menu.jsp" name="izq"></frame>
-      <frame src="/aut/Empleados/cuentas.jsp" name="der"></frame>
+      <frame src="/aut/Controlador?accion=home-empleado" name="der"></frame>
     </frameset>
 </html>
 <%   }else{

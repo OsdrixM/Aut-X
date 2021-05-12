@@ -74,7 +74,7 @@ and open the template in the editor.
                      
                          </div>
                     <div >
-                         <input  type="checkbox" name="ADP" value="si"> Acepto los Términos Y Condiciones.
+                         <input input type="checkbox" required name="terms"> Acepto los Términos Y Condiciones.
                     </div> 
                     </div><hr>
                      <center><input type="submit"  class="btn btn-blue"  value="Registrarce"></center>
@@ -85,10 +85,12 @@ and open the template in the editor.
   <div class="overlay" id="overlay">
   <div class="popup" id="popup">
       <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup">cerrar<i class="fas fa-times"></i></a>
-  <h2 align="center">Contraseña</h2>
-  <div >
-          
-  </div>
+  <h2 align="center">
+      Aut-X "Contraseña"</h2><hr>
+      <label>Tú contraseña debe de contar con 4 caracters min.
+      Se te recomienda que tú contraseña sea lo más complaja y 
+      anonima para ti mismo. ¡Recuerda aun no contamos con solictud de 
+      contraseña olvidada!</label>
   </div>
   </div>
 
